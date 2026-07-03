@@ -1,25 +1,34 @@
 {
-  "name": "aqua",
-  "displayName": "Aqua",
-  "description": "Visual Studio Code support for the Aqua programming language",
-  "version": "0.0.1",
-  "engines": {
-    "vscode": "^1.125.0"
-  },
-  "categories": [
-    "Programming Languages"
-  ],
-  "contributes": {
-    "languages": [{
-      "id": "aqua",
-      "aliases": ["Aqua", "aqua"],
-      "extensions": [".aqua"],
-      "configuration": "./language-configuration.json"
-    }],
-    "grammars": [{
-      "language": "aqua",
-      "scopeName": "source.aqua",
-      "path": "./syntaxes/aqua.tmLanguage.json"
-    }]
-  }
+    "name": "aqua",
+    "displayName": "Aqua",
+    "description": "Visual Studio Code support for the Aqua programming language",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.125.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "aqua",
+                "aliases": [
+                    "Aqua",
+                    "aqua"
+                ],
+                "extensions": [
+                    ".aqua"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "aqua",
+                "scopeName": "source.aqua",
+                "path": "./syntaxes/aqua.tmLanguage.json"
+            }
+        ]
+    }
 }
