@@ -4,31 +4,37 @@
     "scopeName": "source.aqua",
     "patterns": [
         {
-            "include": "#keywords"
-        },
-        {
-            "include": "#strings"
+            "include": "#comments"
         }
     ],
     "repository": {
-        "keywords": {
+        "comments": {
             "patterns": [
                 {
-                    "name": "keyword.control.aqua",
-                    "match": "\\b(if|while|for|return)\\b"
+                    "name": "comment.line.documentation.aqua",
+                    "match": "#!.*$"
+                },
+                {
+                    "name": "comment.line.number-sign.aqua",
+                    "match": "#.*$"
                 }
             ]
         },
-        "strings": {
-            "name": "string.quoted.double.aqua",
-            "begin": "\"",
-            "end": "\"",
-            "patterns": [
-                {
-                    "name": "constant.character.escape.aqua",
-                    "match": "\\\\."
-                }
-            ]
+        "period": {
+            "name": "punctuation.separator.period.aqua",
+            "match": "\\."
+        },
+        "comma": {
+            "name": "punctuation.separator.comma.aqua",
+            "match": ","
+        },
+        "colon": {
+            "name": "punctuation.separator.colon.aqua",
+            "match": ":"
+        },
+        "double_equal": {
+            "name": "punctuation.separator.equal.double.aqua",
+            "match": "=="
         }
     }
 }
