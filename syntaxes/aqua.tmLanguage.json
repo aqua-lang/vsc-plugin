@@ -5,6 +5,15 @@
     "patterns": [
         {
             "include": "#comments"
+        },
+        {
+            "include": "#use"
+        },
+        {
+            "include": "#declarations"
+        },
+        {
+            "include": "#modifiers"
         }
     ],
     "repository": {
@@ -20,6 +29,1379 @@
                 }
             ]
         },
+        "use": {
+            "name": "meta.use.aqua",
+            "begin": "\\b(use)\\s+",
+            "beginCaptures": {
+                "1": {
+                    "name": "storage.type.use.aqua"
+                }
+            },
+            "while": "^(?=\\s*#|\\.)",
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "name": "entity.name.section.aqua",
+                    "match": "\\b[a-zA-Z]\\w*\\b"
+                },
+                {
+                    "include": "#period"
+                }
+            ]
+        },
+        "declarations": {
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#invoke_macro"
+                },
+                {
+                    "include": "#class"
+                },
+                {
+                    "include": "#union"
+                },
+                {
+                    "include": "#actor"
+                },
+                {
+                    "include": "#trait"
+                },
+                {
+                    "include": "#macro"
+                },
+                {
+                    "include": "#alias"
+                },
+                {
+                    "include": "#function"
+                },
+                {
+                    "include": "#variable"
+                }
+            ]
+        },
+        "class": {
+            "name": "meta.class.aqua",
+            "begin": "(?=[\\w\\s\\(\\)]*\\b(?<!\\))class)",
+            "while": "^(?!\\s*(?:actor|class|const|fun|macro|mut|pub|space|trait|union|use|val))",
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#modifiers"
+                },
+                {
+                    "match": "(class)\\s+([a-zA-Z]\\w*)",
+                    "captures": {
+                        "1": {
+                            "name": "storage.type.class.aqua"
+                        },
+                        "2": {
+                            "name": "entity.name.type.class.aqua"
+                        }
+                    }
+                },
+                {
+                    "include": "#generics"
+                },
+                {
+                    "include": "#type_constraints"
+                },
+                {
+                    "include": "#class_body"
+                }
+            ]
+        },
+        "class_body": {
+            "name": "meta.class.body.aqua",
+            "begin": "{",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.section.class.body.begin.aqua"
+                }
+            },
+            "end": "}",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.section.class.body.end.aqua"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#invoke_macro"
+                },
+                {
+                    "include": "#modifiers"
+                },
+                {
+                    "match": "\\b([a-zA-Z]\\w*)\\s*(:)",
+                    "captures": {
+                        "1": {
+                            "name": "variable.field.aqua"
+                        },
+                        "2": {
+                            "name": "punctuation.separator.colon.aqua"
+                        }
+                    }
+                },
+                {
+                    "include": "#types"
+                },
+                {
+                    "include": "#comma"
+                }
+            ]
+        },
+        "union": {
+            "name": "meta.union.aqua",
+            "begin": "(?=[\\w\\s\\(\\)]*\\b(?<!\\))union)",
+            "while": "^(?!\\s*(?:actor|class|const|fun|macro|mut|pub|space|trait|union|use|val))",
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#invoke_macro"
+                },
+                {
+                    "include": "#modifiers"
+                },
+                {
+                    "match": "(union)\\s+([a-zA-Z]\\w*)",
+                    "captures": {
+                        "1": {
+                            "name": "storage.type.union.aqua"
+                        },
+                        "2": {
+                            "name": "entity.name.type.union.aqua"
+                        }
+                    }
+                },
+                {
+                    "include": "#generics"
+                },
+                {
+                    "include": "#type_constraints"
+                },
+                {
+                    "include": "#union_body"
+                }
+            ]
+        },
+        "union_body": {
+            "name": "meta.union.body.aqua",
+            "begin": "{",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.section.union.body.begin.aqua"
+                }
+            },
+            "end": "}",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.section.union.body.end.aqua"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#invoke_macro"
+                },
+                {
+                    "name": "meta.union.body.variant.aqua",
+                    "begin": "\\b([a-zA-Z]\\w*)\\s*",
+                    "captures": {
+                        "1": {
+                            "name": "entiny.name.variant.aqua"
+                        }
+                    },
+                    "end": "(?=,|})",
+                    "patterns": [
+                        {
+                            "include": "#comments"
+                        },
+                        {
+                            "name": "meta.union.body.variant.value.aqua",
+                            "begin": "\\(",
+                            "beginCaptures": {
+                                "0": {
+                                    "name": "punctuation.section.union.body.variant.value.begin.aqua"
+                                }
+                            },
+                            "end": "\\)",
+                            "endCaptures": {
+                                "0": {
+                                    "name": "punctuation.section.union.body.variant.value.end.aqua"
+                                }
+                            },
+                            "patterns": [
+                                {
+                                    "include": "#comments"
+                                },
+                                {
+                                    "include": "#types"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "include": "#comma"
+                }
+            ]
+        },
+        "actor": {
+            "name": "meta.actor.aqua",
+            "begin": "(?=[\\w\\s\\(\\)]*\\b(?<!\\))actor)",
+            "while": "^(?!\\s*(?:actor|class|const|fun|macro|mut|pub|space|trait|union|use|val))",
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#modifiers"
+                },
+                {
+                    "match": "(actor)\\s+([a-zA-Z]\\w*)?",
+                    "captures": {
+                        "1": {
+                            "name": "storage.type.actor.aqua"
+                        },
+                        "2": {
+                            "name": "entity.name.type.actor.aqua"
+                        }
+                    }
+                },
+                {
+                    "include": "#generics"
+                },
+                {
+                    "name": "keyword.other.for.aqua",
+                    "match": "\\bfor\\b"
+                },
+                {
+                    "name": "keyword.other.as.aqua",
+                    "match": "\\bas\\b"
+                },
+                {
+                    "include": "#type_constraints"
+                },
+                {
+                    "include": "#types"
+                },
+                {
+                    "include": "#actor_body"
+                }
+            ]
+        },
+        "trait": {
+            "name": "meta.trait.aqua",
+            "begin": "(?=[\\w\\s\\(\\)]*\\b(?<!\\))trait)",
+            "while": "^(?!\\s*(?:actor|class|const|fun|macro|mut|pub|space|trait|union|use|val))",
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#modifiers"
+                },
+                {
+                    "match": "(trait)\\s+([a-zA-Z]\\w*)",
+                    "captures": {
+                        "1": {
+                            "name": "storage.type.trait.aqua"
+                        },
+                        "2": {
+                            "name": "entity.name.type.trait.aqua"
+                        }
+                    }
+                },
+                {
+                    "include": "#generics"
+                },
+                {
+                    "include": "#colon"
+                },
+                {
+                    "include": "#plus"
+                },
+                {
+                    "include": "#type_constraints"
+                },
+                {
+                    "include": "#types"
+                },
+                {
+                    "include": "#actor_body"
+                }
+            ]
+        },
+        "actor_body": {
+            "name": "meta.actor.body.aqua",
+            "begin": "{",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.section.actor.body.begin.aqua"
+                }
+            },
+            "end": "}",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.section.actor.body.end.aqua"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#invoke_macro"
+                },
+                {
+                    "include": "#alias"
+                },
+                {
+                    "include": "#function"
+                }
+            ]
+        },
+        "macro": {
+            "name": "meta.macro.aqua",
+            "begin": "(?=[\\w\\s\\(\\)]*\\b(?<!\\))macro)",
+            "while": "^(?!\\s*(?:actor|class|const|fun|macro|mut|pub|space|trait|union|use|val))",
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#modifiers"
+                },
+                {
+                    "match": "(macro)\\s+([a-zA-Z]\\w*)",
+                    "captures": {
+                        "1": {
+                            "name": "storage.type.macro.aqua"
+                        },
+                        "2": {
+                            "name": "entity.name.function.macro.aqua"
+                        }
+                    }
+                },
+                {
+                    "include": "#macro_body"
+                }
+            ]
+        },
+        "macro_body": {
+            "name": "meta.macro.body.aqua",
+            "begin": "{",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.section.macro.body.begin.aqua"
+                }
+            },
+            "end": "}",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.section.macro.body.end.aqua"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "name": "meta.macro.body.arm.parameters.aqua",
+                    "begin": "\\(",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.section.macro.body.arm.parameters.begin.aqua"
+                        }
+                    },
+                    "end": "\\)",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.section.macro.body.arm.parameters.end.aqua"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#comment"
+                        },
+                        {
+                            "include": "#parameters"
+                        }
+                    ]
+                },
+                {
+                    "include": "#fat_arrow"
+                },
+                {
+                    "include": "#function_body"
+                },
+                {
+                    "include": "#expressions"
+                },
+                {
+                    "include": "#comma"
+                }
+            ]
+        },
+        "alias": {
+            "name": "meta.alias.aqua",
+            "begin": "(?=[\\w\\s\\(\\)]*\\b(?<!\\))alias)",
+            "while": "^\\s*(?=#|\\.)",
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#modifiers"
+                },
+                {
+                    "match": "(alias)\\s+([a-zA-Z]\\w*)",
+                    "captures": {
+                        "1": {
+                            "name": "storage.type.alias.aqua"
+                        },
+                        "2": {
+                            "name": "entity.name.type.alias.aqua"
+                        }
+                    }
+                },
+                {
+                    "include": "#generics"
+                },
+                {
+                    "include": "#colon"
+                },
+                {
+                    "include": "#plus"
+                },
+                {
+                    "include": "#single_equal"
+                },
+                {
+                    "include": "#types"
+                }
+            ]
+        },
+        "function": {
+            "name": "meta.function.aqua",
+            "begin": "(?=[\\w\\s\\(\\)]*\\b(?<!\\))fun)",
+            "while": "^(?!\\s*(?:actor|class|const|fun|macro|mut|pub|space|trait|union|use|val))",
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#modifiers"
+                },
+                {
+                    "match": "(fun)\\s+([a-zA-Z]\\w*)",
+                    "captures": {
+                        "1": {
+                            "name": "storage.type.function.aqua"
+                        },
+                        "2": {
+                            "name": "entity.name.function.aqua"
+                        }
+                    }
+                },
+                {
+                    "include": "#generics"
+                },
+                {
+                    "name": "meta.function.parameters.aqua",
+                    "begin": "\\(",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.section.function.parameters.begin.aqua"
+                        }
+                    },
+                    "end": "\\)",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.section.function.parameters.end.aqua"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#comment"
+                        },
+                        {
+                            "include": "#parameters"
+                        }
+                    ]
+                },
+                {
+                    "include": "#thin_arrow"
+                },
+                {
+                    "include": "#type_constraints"
+                },
+                {
+                    "include": "#types"
+                },
+                {
+                    "include": "#function_body"
+                }
+            ]
+        },
+        "function_body": {
+            "name": "meta.function.body.aqua",
+            "begin": "{",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.section.function.body.begin.aqua"
+                }
+            },
+            "end": "}",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.section.function.body.end.aqua"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#code"
+                }
+            ]
+        },
+        "code": {
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#class"
+                },
+                {
+                    "include": "#union"
+                },
+                {
+                    "include": "#actor"
+                },
+                {
+                    "include": "#trait"
+                },
+                {
+                    "include": "#macro"
+                },
+                {
+                    "include": "#alias"
+                },
+                {
+                    "include": "#function"
+                },
+                {
+                    "include": "#variable"
+                },
+                {
+                    "include": "#expressions"
+                }
+            ]
+        },
+        "variable": {
+            "name": "meta.variable.aqua",
+            "begin": "(?=[\\w\\s\\(\\)]*\\b(?<!\\))val)",
+            "while": "^\\s*(?=#|\\.)",
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#modifiers"
+                },
+                {
+                    "match": "(val)\\s+([a-zA-Z]\\w*)(?:\\s*(:))?",
+                    "captures": {
+                        "1": {
+                            "name": "storage.type.variable.aqua"
+                        },
+                        "2": {
+                            "name": "variable.other.aqua"
+                        },
+                        "3": {
+                            "name": "punctuation.separator.colon.aqua"
+                        }
+                    }
+                },
+                {
+                    "include": "#single_equal"
+                },
+                {
+                    "include": "#expressions"
+                }
+            ]
+        },
+        "expressions": {
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#booleans"
+                },
+                {
+                    "include": "#numbers"
+                },
+                {
+                    "include": "#characters"
+                },
+                {
+                    "include": "#strings"
+                },
+                {
+                    "include": "#operators"
+                },
+                {
+                    "include": "#invoke_macro"
+                },
+                {
+                    "include": "#lambdas"
+                },
+                {
+                    "include": "#tuple_literals"
+                },
+                {
+                    "name": "variable.language.this.aqua",
+                    "match": "\\bthis\\b"
+                },
+                {
+                    "include": "#invoke_function"
+                },
+                {
+                    "include": "#types"
+                },
+                {
+                    "name": "entity.name.section.aqua",
+                    "match": "\\b[a-zA-Z]\\w*\\b"
+                },
+                {
+                    "include": "#period"
+                },
+                {
+                    "include": "#blocks"
+                }
+            ]
+        },
+        "operators": {
+            "patterns": [
+                {
+                    "name": "keyword.operator.logical.aqua",
+                    "match": "(?:&&|\\|\\|!)"
+                },
+                {
+                    "name": "keyword.operator.bitwise.aqua",
+                    "match": "(?:&|\\||\\^|<<|>>)"
+                },
+                {
+                    "name": "keyword.operator.assignment.bitwise.aqua",
+                    "match": "(?:&=|\\|=|\\^=|<<=|>>=)"
+                },
+                {
+                    "name": "keyword.operator.concat.aqua",
+                    "match": "\\+\\+"
+                },
+                {
+                    "name": "keyword.operator.range.aqua",
+                    "match": "<?\\.\\.<?"
+                },
+                {
+                    "name": "keyword.operator.assignment.concat.aqua",
+                    "match": "(?:\\+\\+=)"
+                },
+                {
+                    "name": "keyword.operator.arithmetic.aqua",
+                    "match": "(?:\\+|\\-|\\*|/|%)"
+                },
+                {
+                    "name": "keyword.operator.assignment.arithmetic.aqua",
+                    "match": "(?:\\+=|\\-=|\\*=|/=|%=)"
+                },
+                {
+                    "name": "keyword.operator.comparison.aqua",
+                    "match": "(?:==|!=|<=|>=|<|>)"
+                },
+                {
+                    "name": "keyword.operator.assignment.aqua",
+                    "match": "="
+                },
+                {
+                    "name": "meta.index.aqua",
+                    "begin": "(\\.)(\\[)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.separator.period.aqua"
+                        },
+                        "2": {
+                            "name": "keyword.operator.index.begin.aqua"
+                        }
+                    },
+                    "end": "\\]",
+                    "endCaptures": {
+                        "0": {
+                            "name": "keyword.operator.index.end.aqua"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#comments"
+                        },
+                        {
+                            "include": "#expressions"
+                        }
+                    ]
+                },
+                {
+                    "name": "meta.invoke_closure.aqua",
+                    "begin": "(\\.)(\\()",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.separator.period.aqua"
+                        },
+                        "2": {
+                            "name": "keyword.operator.invoke_closure.begin.aqua"
+                        }
+                    },
+                    "end": "\\)",
+                    "endCaptures": {
+                        "0": {
+                            "name": "keyword.operator.invoke_closure.end.aqua"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#comments"
+                        },
+                        {
+                            "include": "#expressions"
+                        }
+                    ]
+                }
+            ]
+        },
+        "invoke_macro": {
+            "name": "meta.invoke_macro.aqua",
+            "begin": "@",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.definition.macro.aqua"
+                }
+            },
+            "while": "^(?=\\s*#|\\.)",
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "name": "meta.invoke_macro.invoke.aqua",
+                    "begin": "\\b([a-zA-Z]\\w*)\\s*(\\()",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "entity.name.function.macro.aqua"
+                        },
+                        "2": {
+                            "name": "punctuation.section.arguments.begin.aqua"
+                        }
+                    },
+                    "end": "\\)",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.section.arguments.end.aqua"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#comments"
+                        },
+                        {
+                            "include": "#arguments"
+                        }
+                    ]
+                },
+                {
+                    "name": "entity.name.section.aqua",
+                    "match": "\\b[a-zA-Z]\\w*\\b"
+                },
+                {
+                    "include": "#period"
+                }
+            ]
+        },
+        "invoke_function": {
+            "patterns": [
+                {
+                    "name": "meta.invoke_function.aqua",
+                    "begin": "\\b([a-zA-Z]\\w*)\\s*(\\()",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "entity.name.function.aqua"
+                        },
+                        "2": {
+                            "name": "punctuation.section.arguments.begin.aqua"
+                        }
+                    },
+                    "end": "(?:(\\))(?!\\s*\\\\{)|(?<=}))",
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.section.arguments.end.aqua"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#comments"
+                        },
+                        {
+                            "include": "#arguments"
+                        },
+                        {
+                            "include": "#lambdas"
+                        }
+                    ]
+                },
+                {
+                    "name": "meta.invoke_function.aqua",
+                    "begin": "\\b([a-zA-Z]\\w*)(?=\\s*\\\\{)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "entity.name.function.aqua"
+                        }
+                    },
+                    "end": "(?<=})",
+                    "patterns": [
+                        {
+                            "include": "#comments"
+                        },
+                        {
+                            "include": "#lambdas"
+                        }
+                    ]
+                }
+            ]
+        },
+        "parameters": {
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "name": "variable.language.this.aqua",
+                    "match": "\\bthis\\b"
+                },
+                {
+                    "match": "\\b(?:(\\w+)\\s+)?([a-zA-Z]\\w*)\\s*(:)",
+                    "captures": {
+                        "1": {
+                            "name": "entity.name.tag.aqua"
+                        },
+                        "2": {
+                            "name": "variable.parameter.aqua"
+                        },
+                        "3": {
+                            "name": "punctuation.separator.colon.aqua"
+                        }
+                    }
+                },
+                {
+                    "include": "#types"
+                },
+                {
+                    "include": "#variadics"
+                },
+                {
+                    "include": "#single_equal"
+                },
+                {
+                    "include": "#expressions"
+                },
+                {
+                    "include": "#comma"
+                }
+            ]
+        },
+        "arguments": {
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "match": "\\b(\\w+)\\s*(:)",
+                    "captures": {
+                        "1": {
+                            "name": "entity.name.tag.aqua"
+                        },
+                        "2": {
+                            "name": "entity.name.tag.separator.colon.aqua"
+                        }
+                    }
+                },
+                {
+                    "include": "#expressions"
+                },
+                {
+                    "include": "#comma"
+                }
+            ]
+        },
+        "types": {
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#booleans"
+                },
+                {
+                    "include": "#numbers"
+                },
+                {
+                    "include": "#characters"
+                },
+                {
+                    "include": "#strings"
+                },
+                {
+                    "include": "#invoke_macro"
+                },
+                {
+                    "include": "#lambdas"
+                },
+                {
+                    "include": "#tuple_types"
+                },
+                {
+                    "name": "variable.language.this.aqua",
+                    "match": "\\bThis\\b"
+                },
+                {
+                    "name": "keyword.other.anony.aqua",
+                    "match": "\\banony\\b"
+                },
+                {
+                    "include": "#builtin_types"
+                },
+                {
+                    "include": "#type_conversions"
+                },
+                {
+                    "include": "#or"
+                },
+                {
+                    "name": "entity.name.section.aqua",
+                    "match": "\\b[a-zA-Z]\\w*\\b"
+                },
+                {
+                    "include": "#generics"
+                },
+                {
+                    "include": "#period"
+                }
+            ]
+        },
+        "lambdas": {
+            "name": "meta.lambda.aqua",
+            "begin": "\\\\{",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.section.lambda.begin.aqua"
+                }
+            },
+            "end": "}",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.section.lambda.end.aqua"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "name": "meta.lambda.parameters.aqua",
+                    "begin": "\\(",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.section.lambda.parameters.begin.aqua"
+                        }
+                    },
+                    "end": "\\)",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.section.lambda.parameters.end.aqua"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#comments"
+                        },
+                        {
+                            "include": "#parameters"
+                        }
+                    ]
+                },
+                {
+                    "name": "meta.lambda.type.output.aqua",
+                    "begin": "->",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.separator.arrow.thin.aqua"
+                        }
+                    },
+                    "end": "(?=})",
+                    "patterns": [
+                        {
+                            "include": "#comments"
+                        },
+                        {
+                            "include": "#types"
+                        }
+                    ]
+                },
+                {
+                    "name": "meta.lambda.literal.output.aqua",
+                    "begin": "=>",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.separator.arrow.fat.aqua"
+                        }
+                    },
+                    "end": "(?=})",
+                    "patterns": [
+                        {
+                            "include": "#comments"
+                        },
+                        {
+                            "include": "#code"
+                        }
+                    ]
+                }
+            ]
+        },
+        "tuple_types": {
+            "name": "meta.tuple.type.aqua",
+            "begin": "\\\\\\(",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.section.tuple.begin.aqua"
+                }
+            },
+            "end": "\\)",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.section.tuple.end.aqua"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#types"
+                },
+                {
+                    "include": "#comma"
+                }
+            ]
+        },
+        "generics": {
+            "name": "meta.generics.aqua",
+            "begin": "\\[",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.section.generics.begin.aqua"
+                }
+            },
+            "end": "\\]",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.section.generics.end.aqua"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#modifiers"
+                },
+                {
+                    "match": "\\b([a-zA-Z]\\w*)\\s*(==)",
+                    "captures": {
+                        "1": {
+                            "name": "entity.name.tag.aqua"
+                        },
+                        "2": {
+                            "name": "entity.name.tag.separator.equal.double.aqua"
+                        }
+                    }
+                },
+                {
+                    "include": "#types"
+                },
+                {
+                    "include": "#comma"
+                }
+            ]
+        },
+        "type_constraints": {
+            "name": "meta.type_constraints.aqua",
+            "begin": "\\bwhere\\b",
+            "beginCaptures": {
+                "0": {
+                    "name": "keyword.other.where.aqua"
+                }
+            },
+            "while": "^(?!\\s*(?:actor|class|const|fun|macro|mut|pub|space|trait|union|use|val|{))",
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#colon"
+                },
+                {
+                    "include": "#double_equal"
+                },
+                {
+                    "include": "#plus"
+                },
+                {
+                    "include": "#types"
+                },
+                {
+                    "include": "#comma"
+                }
+            ]
+        },
+        "type_conversions": {
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "name": "keyword.other.as.aqua",
+                    "match": "\\bas\\b"
+                },
+                {
+                    "name": "keyword.other.by.aqua",
+                    "match": "\\bby\\b"
+                }
+            ]
+        },
+        "tuple_literals": {
+            "name": "meta.tuple.literal.aqua",
+            "begin": "\\\\\\(",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.section.tuple.begin.aqua"
+                }
+            },
+            "end": "\\)",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.section.tuple.end.aqua"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#expressions"
+                },
+                {
+                    "include": "#comma"
+                }
+            ]
+        },
+        "builtin_types": {
+            "name": "support.class.aqua",
+            "match": "\\b(?:Array|Bool|Char|Error|F32|F64|I32|I64|Str|U8|U16|U32|U64|Void)\\b"
+        },
+        "booleans": {
+            "patterns": [
+                {
+                    "name": "constant.language.boolean.true.aqua",
+                    "match": "\\btrue\\b"
+                },
+                {
+                    "name": "constant.language.boolean.false.aqua",
+                    "match": "\\bfalse\\b"
+                }
+            ]
+        },
+        "numbers": {
+            "patterns": [
+                {
+                    "name": "constant.numeric.binary.aqua",
+                    "match": "\\b0b[01](?:[01_]*[01])?(u8|u16|u32|u64|i32|i64)?\\b",
+                    "captures": {
+                        "1": {
+                            "name": "storage.type.numeric.aqua"
+                        }
+                    }
+                },
+                {
+                    "name": "constant.numeric.hexadecimal.aqua",
+                    "match": "\\b0x[0-9a-fA-F](?:[0-9a-fA-F_]*[0-9a-fA-F])?(u8|u16|u32|u64|i32|i64)?\\b",
+                    "captures": {
+                        "1": {
+                            "name": "storage.type.numeric.aqua"
+                        }
+                    }
+                },
+                {
+                    "name": "constant.numeric.decimal.aqua",
+                    "match": "\\b(?:(?:0|[1-9](?:[0-9_]*[0-9])?)[eE][+-]?[0-9](?:[0-9_]*[0-9])?(f32|f64)?|(?:0|[1-9](?:[0-9_]*[0-9])?)(?:\\.[0-9](?:[0-9_]*[0-9])?)?(?:[eE][+-]?[0-9](?:[0-9_]*[0-9])?)?(f32|f64)|(?:0|[1-9](?:[0-9_]*[0-9])?)\\.[0-9](?:[0-9_]*[0-9])?(?:[eE][+-]?[0-9](?:[0-9_]*[0-9])?)?(f32|f64)?|(?:0|[1-9](?:[0-9_]*[0-9])?)(?!\\.)(u8|u16|u32|u64|i32|i64)?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "storage.type.numeric.aqua"
+                        },
+                        "2": {
+                            "name": "storage.type.numeric.aqua"
+                        },
+                        "3": {
+                            "name": "storage.type.numeric.aqua"
+                        },
+                        "4": {
+                            "name": "storage.type.numeric.aqua"
+                        }
+                    }
+                }
+            ]
+        },
+        "characters": {
+            "name": "string.quoted.single.aqua",
+            "begin": "'",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.definition.string.begin.aqua"
+                }
+            },
+            "end": "'",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.definition.string.end.aqua"
+                }
+            },
+            "patterns": [
+                {
+                    "name": "constant.character.escape.aqua",
+                    "match": "\\\\."
+                }
+            ]
+        },
+        "strings": {
+            "patterns": [
+                {
+                    "name": "string.quoted.double.aqua",
+                    "begin": "\"",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.begin.aqua"
+                        }
+                    },
+                    "end": "\"",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.end.aqua"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "name": "constant.character.escape.aqua",
+                            "match": "\\\\."
+                        }
+                    ]
+                }
+            ]
+        },
+        "blocks": {
+            "patterns": [
+                {
+                    "name": "meta.block.single.aqua",
+                    "begin": "\\(",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.section.block.single.begin.aqua"
+                        }
+                    },
+                    "end": "\\)",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.section.block.single.end.aqua"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#comments"
+                        },
+                        {
+                            "include": "#expressions"
+                        }
+                    ]
+                },
+                {
+                    "name": "meta.block.multi.aqua",
+                    "begin": "{",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.section.block.multi.begin.aqua"
+                        }
+                    },
+                    "end": "}",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.section.block.multi.end.aqua"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#comments"
+                        },
+                        {
+                            "include": "#code"
+                        }
+                    ]
+                }
+            ]
+        },
+        "modifiers": {
+            "name": "storage.modifier.aqua",
+            "match": "\\b(?:const|mut|pub|pub\\s*\\(\\s*super\\s*\\))\\b"
+        },
+        "controls": {
+            "name": "keyword.control.aqua",
+            "match": "\\b(?:exit|if|in|is|loop|pass|with)\\b"
+        },
+        "variadics": {
+            "name": "punctuation.definition.variadics.aqua",
+            "match": "\\*"
+        },
+        "plus": {
+            "name": "punctuation.separator.plus.aqua",
+            "match": "\\+"
+        },
+        "or": {
+            "name": "punctuation.separator.or.aqua",
+            "match": "\\|"
+        },
         "period": {
             "name": "punctuation.separator.period.aqua",
             "match": "\\."
@@ -32,9 +1414,21 @@
             "name": "punctuation.separator.colon.aqua",
             "match": ":"
         },
+        "single_equal": {
+            "name": "punctuation.separator.equal.single.aqua",
+            "match": "="
+        },
         "double_equal": {
             "name": "punctuation.separator.equal.double.aqua",
             "match": "=="
+        },
+        "thin_arrow": {
+            "name": "punctuation.separator.arrow.thin.aqua",
+            "match": "->"
+        },
+        "fat_arrow": {
+            "name": "punctuation.separator.arrow.fat.aqua",
+            "match": "=>"
         }
     }
 }
