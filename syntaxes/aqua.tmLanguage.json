@@ -1243,7 +1243,7 @@
         },
         "builtin_types": {
             "name": "support.class.aqua",
-            "match": "\\b(?:Array|Bool|Char|Error|F32|F64|I32|I64|Str|U8|U16|U32|U64|Void)\\b"
+            "match": "\\b(?:Array|Bool|Char|F32|F64|I32|I64|Str|U8|U16|U32|U64|Void)\\b"
         },
         "booleans": {
             "patterns": [
