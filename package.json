@@ -24,7 +24,11 @@
                 "extensions": [
                     ".aqua"
                 ],
-                "configuration": "./language-configuration.json"
+                "configuration": "./language-configuration.json",
+                "icon": {
+                    "light": "./icons/aqua-light.png",
+                    "dark": "./icons/aqua-dark.png"
+                }
             }
         ],
         "grammars": [

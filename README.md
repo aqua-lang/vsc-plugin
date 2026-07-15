@@ -1,4 +1,8 @@
-# :droplet: Aqua
+<p align="center">
+    <img src="./assets/aqua-light-background.png">
+</p>
+
+# 💧 Aqua
 
 Visual Studio Code support for Aqua programming language, featuring syntax highlighting, auto-completing, formatting, definition looking up, and other useful tools.
 
