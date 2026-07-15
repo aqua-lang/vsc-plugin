@@ -3,6 +3,7 @@
     "displayName": "Aqua",
     "description": "Visual Studio Code support for the Aqua programming language",
     "version": "0.0.1",
+    "icon": "./assets/aqua-light-background.png",
     "repository": {
         "url": "https://github.com/eav-eav-eav/vsc-plugin"
     },
@@ -13,6 +14,10 @@
     "categories": [
         "Programming Languages"
     ],
+    "author": {
+        "name": "Eav",
+        "url": "https://github.com/eav-eav-eav"
+    },
     "contributes": {
         "languages": [
             {
@@ -26,8 +31,8 @@
                 ],
                 "configuration": "./language-configuration.json",
                 "icon": {
-                    "light": "./icons/aqua-light.png",
-                    "dark": "./icons/aqua-dark.png"
+                    "light": "./icons/aqua-light-outline.png",
+                    "dark": "./icons/aqua-dark-outline.png"
                 }
             }
         ],
@@ -38,9 +43,5 @@
                 "path": "./syntaxes/aqua.tmLanguage.json"
             }
         ]
-    },
-    "author": {
-        "name": "Eav",
-        "url": "https://github.com/eav-eav-eav"
     }
 }
