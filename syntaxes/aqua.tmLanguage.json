@@ -66,7 +66,7 @@
                     "include": "#union"
                 },
                 {
-                    "include": "#actor"
+                    "include": "#model"
                 },
                 {
                     "include": "#trait"
@@ -88,7 +88,7 @@
         "class": {
             "name": "meta.class.aqua",
             "begin": "(?=[\\w\\s\\(\\)]*\\b(?<!\\))class)",
-            "while": "^(?!\\s*(?:actor|class|const|fun|macro|mut|pub|space|trait|union|use|val))",
+            "while": "^(?!\\s*(?:class|const|fun|macro|model|mut|pub|space|trait|union|use|val))",
             "patterns": [
                 {
                     "include": "#comments"
@@ -164,7 +164,7 @@
         "union": {
             "name": "meta.union.aqua",
             "begin": "(?=[\\w\\s\\(\\)]*\\b(?<!\\))union)",
-            "while": "^(?!\\s*(?:actor|class|const|fun|macro|mut|pub|space|trait|union|use|val))",
+            "while": "^(?!\\s*(?:class|const|fun|macro|model|mut|pub|space|trait|union|use|val))",
             "patterns": [
                 {
                     "include": "#comments"
@@ -261,10 +261,10 @@
                 }
             ]
         },
-        "actor": {
-            "name": "meta.actor.aqua",
-            "begin": "(?=[\\w\\s\\(\\)]*\\b(?<!\\))actor)",
-            "while": "^(?!\\s*(?:actor|class|const|fun|macro|mut|pub|space|trait|union|use|val))",
+        "model": {
+            "name": "meta.model.aqua",
+            "begin": "(?=[\\w\\s\\(\\)]*\\b(?<!\\))model)",
+            "while": "^(?!\\s*(?:class|const|fun|macro|model|mut|pub|space|trait|union|use|val))",
             "patterns": [
                 {
                     "include": "#comments"
@@ -273,10 +273,10 @@
                     "include": "#modifiers"
                 },
                 {
-                    "match": "(actor)\\s+(for)",
+                    "match": "(model)\\s+(for)",
                     "captures": {
                         "1": {
-                            "name": "storage.type.actor.aqua"
+                            "name": "storage.type.model.aqua"
                         },
                         "2": {
                             "name": "keyword.other.for.aqua"
@@ -284,13 +284,13 @@
                     }
                 },
                 {
-                    "match": "(actor)\\s+([a-zA-Z]\\w*)?",
+                    "match": "(model)\\s+([a-zA-Z]\\w*)?",
                     "captures": {
                         "1": {
-                            "name": "storage.type.actor.aqua"
+                            "name": "storage.type.model.aqua"
                         },
                         "2": {
-                            "name": "entity.name.type.actor.aqua"
+                            "name": "entity.name.type.model.aqua"
                         }
                     }
                 },
@@ -312,14 +312,14 @@
                     "include": "#types"
                 },
                 {
-                    "include": "#actor_body"
+                    "include": "#model_body"
                 }
             ]
         },
         "trait": {
             "name": "meta.trait.aqua",
             "begin": "(?=[\\w\\s\\(\\)]*\\b(?<!\\))trait)",
-            "while": "^(?!\\s*(?:actor|class|const|fun|macro|mut|pub|space|trait|union|use|val))",
+            "while": "^(?!\\s*(?:class|const|fun|macro|model|mut|pub|space|trait|union|use|val))",
             "patterns": [
                 {
                     "include": "#comments"
@@ -354,22 +354,22 @@
                     "include": "#types"
                 },
                 {
-                    "include": "#actor_body"
+                    "include": "#model_body"
                 }
             ]
         },
-        "actor_body": {
-            "name": "meta.actor.body.aqua",
+        "model_body": {
+            "name": "meta.model.body.aqua",
             "begin": "{",
             "beginCaptures": {
                 "0": {
-                    "name": "punctuation.section.actor.body.begin.aqua"
+                    "name": "punctuation.section.model.body.begin.aqua"
                 }
             },
             "end": "}",
             "endCaptures": {
                 "0": {
-                    "name": "punctuation.section.actor.body.end.aqua"
+                    "name": "punctuation.section.model.body.end.aqua"
                 }
             },
             "patterns": [
@@ -390,7 +390,7 @@
         "macro": {
             "name": "meta.macro.aqua",
             "begin": "(?=[\\w\\s\\(\\)]*\\b(?<!\\))macro)",
-            "while": "^(?!\\s*(?:actor|class|const|fun|macro|mut|pub|space|trait|union|use|val))",
+            "while": "^(?!\\s*(?:class|const|fun|macro|model|mut|pub|space|trait|union|use|val))",
             "patterns": [
                 {
                     "include": "#comments"
@@ -511,7 +511,7 @@
         "function": {
             "name": "meta.function.aqua",
             "begin": "(?=[\\w\\s\\(\\)]*\\b(?<!\\))fun)",
-            "while": "^(?!\\s*(?:actor|class|const|fun|macro|mut|pub|space|trait|union|use|val))",
+            "while": "^(?!\\s*(?:class|const|fun|macro|model|mut|pub|space|trait|union|use|val))",
             "patterns": [
                 {
                     "include": "#comments"
@@ -605,7 +605,7 @@
                     "include": "#union"
                 },
                 {
-                    "include": "#actor"
+                    "include": "#model"
                 },
                 {
                     "include": "#trait"
@@ -1178,7 +1178,7 @@
                     "name": "keyword.other.where.aqua"
                 }
             },
-            "while": "^(?!\\s*(?:actor|class|const|fun|macro|mut|pub|space|trait|union|use|val|{))",
+            "while": "^(?!\\s*(?:class|const|fun|macro|model|mut|pub|space|trait|union|use|val|{))",
             "patterns": [
                 {
                     "include": "#comments"
